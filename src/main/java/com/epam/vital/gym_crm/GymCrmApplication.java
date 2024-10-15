@@ -1,8 +1,9 @@
 package com.epam.vital.gym_crm;
 
+import com.epam.vital.gym_crm.repository.TraineeRepository;
 import com.epam.vital.gym_crm.repository.TrainerRepository;
+import com.epam.vital.gym_crm.repository.TrainingRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @RequiredArgsConstructor
 public class GymCrmApplication implements CommandLineRunner {
     private final TrainerRepository trainerRepository;
+    private final TraineeRepository traineeRepository;
+    private final TrainingRepository trainingRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(GymCrmApplication.class, args);
@@ -19,5 +22,7 @@ public class GymCrmApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         System.out.println(trainerRepository.getAllTrainers());
+        System.out.println(traineeRepository.getAllTrainees());
+        System.out.println(trainingRepository.getAllTrainings());
     }
 }

@@ -1,7 +1,9 @@
 package com.epam.vital.gym_crm.config;
 
 import com.epam.vital.gym_crm.dict.Specialization;
+import com.epam.vital.gym_crm.model.Trainee;
 import com.epam.vital.gym_crm.model.Trainer;
+import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -25,6 +28,11 @@ import java.util.stream.Collectors;
 public class RepositoryConfig {
     @Value("${users_init_file_path}")
     private String usersInitFilePath;
+    @Value("${trainees_init_file_path}")
+    private String traineesInitFilePath;
+    @Value("${trainings_init_file_path}")
+    private String trainingsInitFilePath;
+
     private final ObjectMapper objectMapper;
     private final Random random = new Random();
 
@@ -50,5 +58,15 @@ public class RepositoryConfig {
                     .collect(Collectors.toList()))
                         .map((index) -> new Trainer((long) (index.getKey() + 1), List.of(Specialization.values()[random.nextInt(Specialization.values().length)]), index.getValue().getId()))
                         .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Bean
+    LinkedList<Trainee> traineeList() throws IOException {
+        return objectMapper.readValue(new File(traineesInitFilePath), new TypeReference<LinkedList<Trainee>>() {});
+    }
+
+    @Bean
+    ArrayList<Training> trainingList() throws IOException {
+        return objectMapper.readValue(new File(trainingsInitFilePath), new TypeReference<ArrayList<Training>>() {});
     }
 }

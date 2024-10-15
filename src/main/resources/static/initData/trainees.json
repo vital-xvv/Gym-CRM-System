@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "birthDate": "1990-05-12",
+    "address": {
+      "id": 101,
+      "street": "123 Main St",
+      "city": "New York",
+      "countryCode": "US",
+      "postalCode": "10001"
+    },
+    "userId": 2
+  },
+  {
+    "id": 2,
+    "birthDate": "1985-07-21",
+    "address": {
+      "id": 102,
+      "street": "456 Maple Ave",
+      "city": "Los Angeles",
+      "countryCode": "US",
+      "postalCode": "90001"
+    },
+    "userId": 3
+  },
+  {
+    "id": 3,
+    "birthDate": "1992-11-03",
+    "address": {
+      "id": 103,
+      "street": "789 Oak Blvd",
+      "city": "Chicago",
+      "countryCode": "US",
+      "postalCode": "60601"
+    },
+    "userId": 4
+  },
+  {
+    "id": 4,
+    "birthDate": "1978-03-15",
+    "address": {
+      "id": 104,
+      "street": "101 Pine Dr",
+      "city": "Houston",
+      "countryCode": "US",
+      "postalCode": "77001"
+    },
+    "userId": 5
+  },
+  {
+    "id": 5,
+    "birthDate": "2000-12-20",
+    "address": {
+      "id": 105,
+      "street": "202 Cedar Ln",
+      "city": "Miami",
+      "countryCode": "US",
+      "postalCode": "33101"
+    },
+    "userId": 7
+  },
+  {
+    "id": 6,
+    "birthDate": "1995-06-10",
+    "address": {
+      "id": 106,
+      "street": "303 Birch St",
+      "city": "San Francisco",
+      "countryCode": "US",
+      "postalCode": "94101"
+    },
+    "userId": 8
+  },
+  {
+    "id": 7,
+    "birthDate": "1988-04-25",
+    "address": {
+      "id": 107,
+      "street": "404 Walnut St",
+      "city": "Dallas",
+      "countryCode": "US",
+      "postalCode": "75201"
+    },
+    "userId": 9
+  },
+  {
+    "id": 8,
+    "birthDate": "1993-08-17",
+    "address": {
+      "id": 108,
+      "street": "505 Cherry St",
+      "city": "Atlanta",
+      "countryCode": "US",
+      "postalCode": "30301"
+    },
+    "userId": 10
+  },
+  {
+    "id": 9,
+    "birthDate": "1983-02-11",
+    "address": {
+      "id": 109,
+      "street": "606 Aspen Ln",
+      "city": "Seattle",
+      "countryCode": "US",
+      "postalCode": "98101"
+    },
+    "userId": 12
+  },
+  {
+    "id": 10,
+    "birthDate": "1997-07-30",
+    "address": {
+      "id": 110,
+      "street": "707 Fir St",
+      "city": "Denver",
+      "countryCode": "US",
+      "postalCode": "80201"
+    },
+    "userId": 13
+  },
+  {
+    "id": 11,
+    "birthDate": "1989-09-09",
+    "address": {
+      "id": 111,
+      "street": "808 Elm St",
+      "city": "Boston",
+      "countryCode": "US",
+      "postalCode": "02101"
+    },
+    "userId": 14
+  },
+  {
+    "id": 12,
+    "birthDate": "1991-01-22",
+    "address": {
+      "id": 112,
+      "street": "909 Maplewood Dr",
+      "city": "Phoenix",
+      "countryCode": "US",
+      "postalCode": "85001"
+    },
+    "userId": 15
+  },
+  {
+    "id": 13,
+    "birthDate": "1987-03-04",
+    "address": {
+      "id": 113,
+      "street": "1010 Forest Rd",
+      "city": "Las Vegas",
+      "countryCode": "US",
+      "postalCode": "89101"
+    },
+    "userId": 17
+  },
+  {
+    "id": 14,
+    "birthDate": "1994-10-10",
+    "address": {
+      "id": 114,
+      "street": "1111 Spruce Ln",
+      "city": "Portland",
+      "countryCode": "US",
+      "postalCode": "97201"
+    },
+    "userId": 18
+  },
+  {
+    "id": 15,
+    "birthDate": "1999-11-17",
+    "address": {
+      "id": 115,
+      "street": "1212 Hemlock Ave",
+      "city": "San Diego",
+      "countryCode": "US",
+      "postalCode": "92101"
+    },
+    "userId": 19
+  },
+  {
+    "id": 16,
+    "birthDate": "1982-12-05",
+    "address": {
+      "id": 116,
+      "street": "1313 Juniper St",
+      "city": "Austin",
+      "countryCode": "US",
+      "postalCode": "73301"
+    },
+    "userId": 20
+  },
+  {
+    "id": 17,
+    "birthDate": "1996-04-14",
+    "address": {
+      "id": 117,
+      "street": "1414 Redwood Ct",
+      "city": "Philadelphia",
+      "countryCode": "US",
+      "postalCode": "19101"
+    },
+    "userId": 22
+  },
+  {
+    "id": 18,
+    "birthDate": "1986-06-06",
+    "address": {
+      "id": 118,
+      "street": "1515 Cedar Pl",
+      "city": "Baltimore",
+      "countryCode": "US",
+      "postalCode": "21201"
+    },
+    "userId": 23
+  },
+  {
+    "id": 19,
+    "birthDate": "1990-08-18",
+    "address": {
+      "id": 119,
+      "street": "1616 Pine St",
+      "city": "San Antonio",
+      "countryCode": "US",
+      "postalCode": "78201"
+    },
+    "userId": 24
+  },
+  {
+    "id": 20,
+    "birthDate": "1984-05-20",
+    "address": {
+      "id": 120,
+      "street": "1717 Oak Ave",
+      "city": "Orlando",
+      "countryCode": "US",
+      "postalCode": "32801"
+    },
+    "userId": 25
+  }
+]
