@@ -1,6 +1,7 @@
 package com.epam.vital.gym_crm.model;
 
 import com.epam.vital.gym_crm.dict.TrainingType;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;

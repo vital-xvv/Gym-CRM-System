@@ -7,10 +7,11 @@ import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.model.User;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import one.util.streamex.EntryStream;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 @Configuration
-@RequiredArgsConstructor
 public class RepositoryConfig {
     @Value("${users_init_file_path}")
     private String usersInitFilePath;
@@ -33,8 +33,13 @@ public class RepositoryConfig {
     @Value("${trainings_init_file_path}")
     private String trainingsInitFilePath;
 
-    private final ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
     private final Random random = new Random();
+
+    @Autowired
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Bean
     public LinkedList<User> userList() throws IOException {
@@ -68,5 +73,12 @@ public class RepositoryConfig {
     @Bean
     ArrayList<Training> trainingList() throws IOException {
         return objectMapper.readValue(new File(trainingsInitFilePath), new TypeReference<ArrayList<Training>>() {});
+    }
+
+    @Bean
+    ObjectMapper objectMapper() {
+        ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
+        return om;
     }
 }

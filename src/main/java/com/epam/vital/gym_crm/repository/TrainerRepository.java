@@ -1,8 +1,8 @@
 package com.epam.vital.gym_crm.repository;
 
 import com.epam.vital.gym_crm.model.Trainer;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedList;
@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-@RequiredArgsConstructor
 public class TrainerRepository {
-    private final LinkedList<Trainer> trainers;
+    private LinkedList<Trainer> trainers;
+
+    @Autowired
+    public void setTrainers(LinkedList<Trainer> trainers) {
+        this.trainers = trainers;
+    }
 
     public List<Trainer> getAllTrainers() {
         return trainers;

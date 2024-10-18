@@ -17,11 +17,12 @@ public class UserDeserializer extends StdDeserializer<User> {
 
     @Override
     public User deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        JsonNode node = jp.getCodec().readTree(jp);
-        Long id = node.get("id").asLong();
-        String firstName = node.get("firstName").asText();
-        String lastName = node.get("lastName").asText();
-
-        return User.builder().id(id).firstName(firstName).lastName(lastName).build();
+//        JsonNode node = jp.getCodec().readTree(jp);
+//        Long id = node.get("id").asLong();
+//        String firstName = node.get("firstName").asText();
+//        String lastName = node.get("lastName").asText();
+//
+//        return User.builder().id(id).firstName(firstName).lastName(lastName).build();
+        return new User();
     }
 }

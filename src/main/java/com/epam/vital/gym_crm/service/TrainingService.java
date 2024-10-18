@@ -2,8 +2,8 @@ package com.epam.vital.gym_crm.service;
 
 import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.repository.TrainingRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class TrainingService {
-    private final TrainingRepository repository;
+    private TrainingRepository repository;
+
+    @Autowired
+    public void setRepository(TrainingRepository repository) {
+        this.repository = repository;
+    }
 
     public boolean createTraining(Training training) {
         log.info("Creating a training...");

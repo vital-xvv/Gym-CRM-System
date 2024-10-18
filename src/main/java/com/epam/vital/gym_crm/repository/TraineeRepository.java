@@ -1,9 +1,9 @@
 package com.epam.vital.gym_crm.repository;
 
 import com.epam.vital.gym_crm.model.Trainee;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.util.streamex.EntryStream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,9 +11,13 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-@RequiredArgsConstructor
 public class TraineeRepository {
-    private final List<Trainee> traineeList;
+    private List<Trainee> traineeList;
+
+    @Autowired
+    public void setTraineeList(List<Trainee> traineeList) {
+        this.traineeList = traineeList;
+    }
 
     public List<Trainee> getAllTrainees() {
         return traineeList;
