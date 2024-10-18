@@ -1,12 +1,12 @@
 package com.epam.vital.gym_crm.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
+@Getter
 public class User {
-    private Long id;
+    public Long id;
     private String firstName;
     private String lastName;
     private String username;

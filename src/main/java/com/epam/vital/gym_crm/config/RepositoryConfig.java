@@ -18,6 +18,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class RepositoryConfig {
     private String trainingsInitFilePath;
 
     private ObjectMapper objectMapper;
-    private final Random random = new Random();
+    private final Random random = new Random(111);
+    private final String possiblePasswordChars = "1234567890+-.,/?&*()qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
 
     @Autowired
     public void setObjectMapper(ObjectMapper objectMapper) {
@@ -45,11 +48,11 @@ public class RepositoryConfig {
     public LinkedList<User> userList() throws IOException {
         LinkedList<User> users = objectMapper.readValue(new File(usersInitFilePath), new TypeReference<LinkedList<User>>() {});
         users.forEach(u -> {
-            u.setPassword(RandomStringUtils.random(10));
-            u.setUsername("%s.%s".formatted(StringUtils.capitalize(u.getFirstName()), StringUtils.capitalize(u.getLastName())));
-            if (users.stream().anyMatch(us -> us.getUsername().equals(u.getUsername()))) {
-                u.setUsername(u.getUsername() + u.getId());
-            }
+            u.setPassword(new String(RandomStringUtils.random(10, 0, possiblePasswordChars.length(), true, true, possiblePasswordChars.toCharArray(), new Random(123)).getBytes(), StandardCharsets.UTF_8));
+            String username = "%s.%s".formatted(StringUtils.capitalize(u.getFirstName()), StringUtils.capitalize(u.getLastName()));
+            if (users.stream().anyMatch(us -> username.equals(u.getUsername()))) {
+                u.setUsername(username + u.getId());
+            } else u.setUsername(username);
         });
         return users;
     }
