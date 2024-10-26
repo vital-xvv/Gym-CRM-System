@@ -17,13 +17,13 @@ public enum TrainingType {
     BOOTCAMP("Bootcamp"),
     AEROBICS("Aerobics");
 
-    private final String displayName;
+    private final String title;
 
-    TrainingType(String displayName) {
-        this.displayName = displayName;
+    TrainingType(String title) {
+        this.title = title;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getTitle() {
+        return title;
     }
 }

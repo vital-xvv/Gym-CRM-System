@@ -2,6 +2,7 @@ package com.epam.vital.gym_crm.service;
 
 import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.repository.TrainingRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 public class TrainingService {
     private TrainingRepository repository;
 
@@ -19,14 +21,14 @@ public class TrainingService {
         this.repository = repository;
     }
 
-    public boolean createTraining(Training training) {
+    public void createTraining(Training training) {
         log.info("Creating a training...");
-        return repository.create(training);
+        repository.save(training);
     }
 
     public Training getTrainingById(Long id) {
         log.info("Finding a training with id {}...", id);
-        Optional<Training> training = repository.getById(id);
+        Optional<Training> training = repository.findById(id);
         if (training.isPresent()) return training.get();
         else {
             log.error("Training with a specified id {} was not found.", id);
@@ -36,6 +38,6 @@ public class TrainingService {
 
     public List<Training> getListOfTrainings() {
         log.info("Retrieving all trainings from DB...");
-        return repository.getAllTrainings();
+        return repository.findAll();
     }
 }

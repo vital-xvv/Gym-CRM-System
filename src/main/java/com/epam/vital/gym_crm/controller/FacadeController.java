@@ -38,9 +38,8 @@ public class FacadeController {
     //Training Endpoints
     @PostMapping(TRAINING_ENDPOINT + "/create")
     public ResponseEntity<?> createTraining(@RequestBody Training training) {
-        boolean created = trainingService.createTraining(training);
-        return created ? ResponseEntity.status(HttpStatus.CREATED).body(Map.of("created", true)) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        trainingService.createTraining(training);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("created", true));
     }
 
     @GetMapping(TRAINING_ENDPOINT + "/{id}")
@@ -71,15 +70,15 @@ public class FacadeController {
 
     @PostMapping(TRAINER_ENDPOINT + "/create")
     public ResponseEntity<?> createTrainer(@RequestBody Trainer trainer) {
-        boolean created = trainerService.createTrainer(trainer);
-        return created ? ResponseEntity.status(HttpStatus.CREATED).body(Map.of("created", true)) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        trainerService.createTrainer(trainer);
+        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("created", true));
+
     }
 
     @PutMapping(TRAINER_ENDPOINT + "/update")
     public ResponseEntity<?> updateTrainer(@RequestBody Trainer trainer) {
-        boolean updated = trainerService.updateTrainer(trainer);
-        return updated ? ResponseEntity.status(HttpStatus.CREATED).build() : ResponseEntity.badRequest().build();
+        trainerService.updateTrainer(trainer);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     //END Trainer Endpoints
 
@@ -103,8 +102,8 @@ public class FacadeController {
 
     @PostMapping(TRAINEE_ENDPOINT + "/create")
     public ResponseEntity<?> createTraineeById(@RequestBody Trainee trainee) {
-        boolean created = traineeService.createTrainee(trainee);
-        return ResponseEntity.status(created ? HttpStatus.CREATED : HttpStatus.BAD_REQUEST).build();
+        traineeService.createTrainee(trainee);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping(TRAINEE_ENDPOINT + "/update")
