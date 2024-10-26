@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 10, 12, 13],
+    "trainingType": "STRENGTH_TRAINING",
+    "dateTime": "2024-10-14T09:30:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 2,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 9, 12, 13, 14, 15],
+    "trainingType": "CROSSFIT",
+    "dateTime": "2024-10-14T11:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 3,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 10, 12, 13],
+    "trainingType": "YOGA",
+    "dateTime": "2024-10-14T13:00:00",
+    "duration": "PT1H30M"
+  },
+  {
+    "id": 4,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10],
+    "trainingType": "BODYBUILDING",
+    "dateTime": "2024-10-14T15:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 5,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10, 12, 14, 15],
+    "trainingType": "HIGH_INTENSITY_INTERVAL_TRAINING",
+    "dateTime": "2024-10-14T16:30:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 6,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 10],
+    "trainingType": "FUNCTIONAL_TRAINING",
+    "dateTime": "2024-10-14T10:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 7,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 8, 9, 10, 12],
+    "trainingType": "CARDIO",
+    "dateTime": "2024-10-14T09:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 8,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 12],
+    "trainingType": "CIRCUIT_TRAINING",
+    "dateTime": "2024-10-14T12:00:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 9,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 10],
+    "trainingType": "MARTIAL_ARTS",
+    "dateTime": "2024-10-14T14:00:00",
+    "duration": "PT1H30M"
+  },
+  {
+    "id": 10,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10, 12],
+    "trainingType": "AEROBICS",
+    "dateTime": "2024-10-14T17:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 11,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9],
+    "trainingType": "PILATES",
+    "dateTime": "2024-10-14T09:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 12,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 8, 9, 10, 12],
+    "trainingType": "BALANCE_TRAINING",
+    "dateTime": "2024-10-14T10:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 13,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 12, 13],
+    "trainingType": "ENDURANCE",
+    "dateTime": "2024-10-14T14:30:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 14,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 10, 12],
+    "trainingType": "STRENGTH_TRAINING",
+    "dateTime": "2024-10-14T18:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 15,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10, 12],
+    "trainingType": "BODYBUILDING",
+    "dateTime": "2024-10-14T16:00:00",
+    "duration": "PT1H30M"
+  },
+  {
+    "id": 16,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9],
+    "trainingType": "MARTIAL_ARTS",
+    "dateTime": "2024-10-14T10:00:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 17,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 9, 10, 12, 13],
+    "trainingType": "FUNCTIONAL_TRAINING",
+    "dateTime": "2024-10-14T13:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 18,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 12],
+    "trainingType": "HIGH_INTENSITY_INTERVAL_TRAINING",
+    "dateTime": "2024-10-14T14:30:00",
+    "duration": "PT1H30M"
+  },
+  {
+    "id": 19,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 10],
+    "trainingType": "BALANCE_TRAINING",
+    "dateTime": "2024-10-14T17:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 20,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10],
+    "trainingType": "YOGA",
+    "dateTime": "2024-10-14T16:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 21,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9],
+    "trainingType": "CIRCUIT_TRAINING",
+    "dateTime": "2024-10-14T10:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 22,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 8, 9, 12],
+    "trainingType": "ENDURANCE",
+    "dateTime": "2024-10-14T14:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 23,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 10],
+    "trainingType": "PILATES",
+    "dateTime": "2024-10-14T11:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 24,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9, 10],
+    "trainingType": "CROSSFIT",
+    "dateTime": "2024-10-14T15:00:00",
+    "duration": "PT1H15M"
+  },
+  {
+    "id": 25,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 12],
+    "trainingType": "FUNCTIONAL_TRAINING",
+    "dateTime": "2024-10-14T17:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 26,
+    "trainerId": 1,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 10],
+    "trainingType": "MARTIAL_ARTS",
+    "dateTime": "2024-10-14T12:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 27,
+    "trainerId": 6,
+    "traineeIdList": [2, 4, 5, 7, 8, 9, 12],
+    "trainingType": "AEROBICS",
+    "dateTime": "2024-10-14T09:30:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 28,
+    "trainerId": 11,
+    "traineeIdList": [2, 3, 4, 5, 7, 8, 9],
+    "trainingType": "BODYBUILDING",
+    "dateTime": "2024-10-14T14:30:00",
+    "duration": "PT1H30M"
+  },
+  {
+    "id": 29,
+    "trainerId": 16,
+    "traineeIdList": [2, 3, 4, 5, 7, 9, 12],
+    "trainingType": "YOGA",
+    "dateTime": "2024-10-14T18:00:00",
+    "duration": "PT1H"
+  },
+  {
+    "id": 30,
+    "trainerId": 21,
+    "traineeIdList": [2, 3, 5, 7, 8, 9, 10],
+    "trainingType": "STRENGTH_TRAINING",
+    "dateTime": "2024-10-14T19:00:00",
+    "duration": "PT1H15M"
+  }
+]
