@@ -1,13 +1,15 @@
 package com.epam.vital.gym_crm.model;
 
-import com.epam.vital.gym_crm.util.UserUtils;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 @Data
 @Getter
 @Entity
+@Table(name = "user")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     public Long id;
@@ -16,6 +18,7 @@ public class User {
     @Column(unique = true)
     private String username;
     private String password;
+    @Column(columnDefinition = "BIT DEFAULT 0")
     private Boolean isActive;
     @OneToOne
     private Address address;

@@ -13,6 +13,6 @@ public class GymCrmApplication {
 
     public static void main(String[] args) {
         FacadeController controller = applicationContext.getBean(FacadeController.class);
-        System.out.println(controller.getAllTrainers().getBody());
+        //System.out.println(controller.ge().getBody());
     }
 }

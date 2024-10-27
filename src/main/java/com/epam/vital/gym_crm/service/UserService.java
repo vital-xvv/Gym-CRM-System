@@ -46,4 +46,8 @@ public class UserService {
         user.setUsername(UserUtils.generateUsername(user, repository.existsByUsername(UserUtils.generateUsername(user, true))));
     }
 
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
 }
