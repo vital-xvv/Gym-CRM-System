@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 public class Trainer {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
     private User user;

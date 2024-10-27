@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface TrainingRepository extends JpaRepository<Training, Long> {
-    List<Training> findAllByTraineeListContains(Trainee trainee);
+    List<Training> findAllByTraineesContains(Trainee trainee);
 }

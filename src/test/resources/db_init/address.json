@@ -1,0 +1,74 @@
+[
+  {
+    "street": "123 Main St",
+    "city": "New York",
+    "countryCode": "US",
+    "postalCode": "10001"
+  },
+  {
+    "street": "456 Elm St",
+    "city": "Los Angeles",
+    "countryCode": "US",
+    "postalCode": "90001"
+  },
+  {
+    "street": "789 Maple Ave",
+    "city": "Chicago",
+    "countryCode": "US",
+    "postalCode": "60601"
+  },
+  {
+    "street": "321 Oak St",
+    "city": "Houston",
+    "countryCode": "US",
+    "postalCode": "77001"
+  },
+  {
+    "street": "654 Pine St",
+    "city": "Phoenix",
+    "countryCode": "US",
+    "postalCode": "85001"
+  },
+  {
+    "street": "1011 Cedar Blvd",
+    "city": "San Antonio",
+    "countryCode": "US",
+    "postalCode": "78201"
+  },
+  {
+    "street": "1213 Birch St",
+    "city": "Dallas",
+    "countryCode": "US",
+    "postalCode": "75201"
+  },
+  {
+    "street": "1415 Walnut St",
+    "city": "San Diego",
+    "countryCode": "US",
+    "postalCode": "92101"
+  },
+  {
+    "street": "1617 Spruce St",
+    "city": "Austin",
+    "countryCode": "US",
+    "postalCode": "78701"
+  },
+  {
+    "street": "1819 Fir St",
+    "city": "Seattle",
+    "countryCode": "US",
+    "postalCode": "98101"
+  },
+  {
+    "street": "2020 Ash St",
+    "city": "Philadelphia",
+    "countryCode": "US",
+    "postalCode": "19101"
+  },
+  {
+    "street": "2121 Chestnut St",
+    "city": "Miami",
+    "countryCode": "US",
+    "postalCode": "33101"
+  }
+]

@@ -17,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Trainee {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
     private User user;

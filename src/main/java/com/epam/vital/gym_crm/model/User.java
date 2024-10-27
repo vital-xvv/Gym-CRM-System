@@ -12,6 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
     private String firstName;
     private String lastName;
@@ -20,6 +21,6 @@ public class User {
     private String password;
     @Column(columnDefinition = "BIT DEFAULT 0")
     private Boolean isActive;
-    @OneToOne
+    @OneToOne(optional = false)
     private Address address;
 }

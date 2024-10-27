@@ -7,8 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @ComponentScan(basePackages = "com.epam.vital.gym_crm")
 @PropertySource("classpath:application.properties")
-public
-class GymCrmApplicationTests {
+public class GymCrmApplicationTests {
     protected static final ApplicationContext applicationContext =
             new AnnotationConfigApplicationContext(GymCrmApplication.class);
 }

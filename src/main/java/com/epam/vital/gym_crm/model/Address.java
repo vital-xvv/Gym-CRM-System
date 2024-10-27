@@ -1,8 +1,6 @@
 package com.epam.vital.gym_crm.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Address {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String street;
     private String city;

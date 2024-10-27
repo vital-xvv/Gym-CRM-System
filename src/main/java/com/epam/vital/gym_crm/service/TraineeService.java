@@ -52,7 +52,7 @@ public class TraineeService {
 
     public boolean deleteTraineeById(Long id) {
         Optional<Trainee> trainee = repository.findById(id);
-        List<Training> trainings = trainee.map(trainingRepository::findAllByTraineeListContains).orElse(Collections.emptyList());
+        List<Training> trainings = trainee.map(trainingRepository::findAllByTraineesContains).orElse(Collections.emptyList());
         trainings.stream().filter(t -> t.getTrainees().size() == 1).forEach(trainingRepository::delete);
         repository.deleteById(id);
         return repository.findById(id).isEmpty();
