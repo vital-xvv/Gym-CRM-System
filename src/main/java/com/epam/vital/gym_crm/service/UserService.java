@@ -28,6 +28,7 @@ public class UserService {
         Optional<User> user = repository.findByUsername(username);
         if (user.isPresent() && authenticateUser(user.get().getUsername(), oldPassword)) {
             user.get().setPassword(newPassword);
+            repository.save(user.get());
             return true;
         }
         return false;
@@ -35,7 +36,10 @@ public class UserService {
 
     public void changeUserProfileActivation(String username, boolean isActive) {
         Optional<User> user = repository.findByUsername(username);
-        user.ifPresent(value -> value.setIsActive(isActive));
+        user.ifPresent(value -> {
+            value.setIsActive(isActive);
+            repository.save(user.get());
+        });
     }
 
     public void deleteUserProfileByUsername(String username) {
@@ -43,7 +47,8 @@ public class UserService {
     }
 
     public void setUserUsername(User user) {
-        user.setUsername(UserUtils.generateUsername(user, repository.existsByUsername(UserUtils.generateUsername(user, true))));
+        user.setUsername(UserUtils.generateUsername(user, !repository.existsByUsername(UserUtils.generateUsername(user, true))));
+        repository.save(user);
     }
 
     public Optional<User> findUserByUsername(String username) {
