@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
-@Getter
 @Entity
 @Table(name = "user")
 @Builder
@@ -20,7 +19,7 @@ public class User {
     private String username;
     private String password;
     @Column(columnDefinition = "BIT DEFAULT 0")
-    private Boolean isActive;
-    @OneToOne(optional = false)
+    private Boolean isActive = false;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Address address;
 }

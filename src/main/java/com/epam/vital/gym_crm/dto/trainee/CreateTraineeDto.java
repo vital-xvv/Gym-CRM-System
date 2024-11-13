@@ -2,10 +2,12 @@ package com.epam.vital.gym_crm.dto.trainee;
 
 import com.epam.vital.gym_crm.dto.user.CreateUserDto;
 import com.epam.vital.gym_crm.model.Trainee;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Data
 public class CreateTraineeDto {
     @NotNull
     private CreateUserDto user;

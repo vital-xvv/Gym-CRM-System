@@ -1,18 +1,17 @@
 package com.epam.vital.gym_crm;
 
-import com.epam.vital.gym_crm.controller.FacadeController;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
+import org.apache.catalina.LifecycleException;
+import org.apache.catalina.startup.Tomcat;
 
-@ComponentScan(basePackages = "com.epam.vital.gym_crm")
-@PropertySource("classpath:application.properties")
+import java.io.File;
+
 public class GymCrmApplication {
-    private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext(GymCrmApplication.class);
-
-    public static void main(String[] args) {
-        FacadeController controller = applicationContext.getBean(FacadeController.class);
-        //System.out.println(controller.ge().getBody());
+    public static void main(String[] args) throws LifecycleException {
+        Tomcat tomcat = new Tomcat();
+        tomcat.setPort(8080);
+        tomcat.addWebapp("", new File("src/main/").getAbsolutePath());
+        tomcat.getConnector();
+        tomcat.start();
+        tomcat.getServer().await();
     }
 }

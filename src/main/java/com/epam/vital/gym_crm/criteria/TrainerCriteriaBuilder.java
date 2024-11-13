@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -28,43 +29,34 @@ public class TrainerCriteriaBuilder {
             String trainerUsername,
             LocalDateTime from,
             LocalDateTime to,
-            String traineeName,
-            TrainingType trainingType
+            String traineeName
     ) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Training> criteriaQuery = criteriaBuilder.createQuery(Training.class);
 
         Root<Training> root = criteriaQuery.from(Training.class);
+        Join<Training, Trainee> traineeJoin = root.join("trainees", JoinType.INNER);
         Join<Training, Trainer> trainerJoin = root.join("trainer", JoinType.INNER);
-        Join<Training, Trainee> traineeJoin = root.join("trainee", JoinType.INNER);
         Join<Join<Training, Trainee>, User> userJoinTrainee =  traineeJoin.join("user", JoinType.INNER);
-        Join<Join<Trainer, Trainee>, User> userJoinTrainer =  trainerJoin.join("user", JoinType.INNER);
+        Join<Join<Training, Trainer>, User> userJoinTrainer =  trainerJoin.join("user", JoinType.INNER);
 
-        Predicate dateTimeBetween = criteriaBuilder.between(root.get("dateTime"), from , to);
-        Predicate hasTraineeWithName = criteriaBuilder.equal(userJoinTrainee.get("firstName"), traineeName);
         Predicate hasTrainerWithUsername = criteriaBuilder.equal(userJoinTrainer.get("username"), trainerUsername);
+        Predicate fromDateTime = criteriaBuilder.greaterThanOrEqualTo(root.get("dateTime"), from);
+        Predicate toDateTime = criteriaBuilder.lessThanOrEqualTo(root.get("dateTime"), to);
+        Predicate hasTraineeWithName = criteriaBuilder.equal(userJoinTrainee.get("firstName"), traineeName);
 
-        Predicate andPredicate = criteriaBuilder.and(dateTimeBetween, hasTraineeWithName, hasTrainerWithUsername);
+        List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(hasTrainerWithUsername);
+        if (from != null) predicates.add(fromDateTime);
+        if (to != null) predicates.add(toDateTime);
+        if (traineeName != null) predicates.add(hasTraineeWithName);
+
+        Predicate andPredicate = criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
         criteriaQuery.where(andPredicate);
 
         TypedQuery<Training> query = em.createQuery(criteriaQuery);
-        return query.getResultList();
-    }
-
-    public List<Trainer> findTrainersWithNoMutualTrainingsWithTrainee(String traineeUsername) {
-        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
-        CriteriaQuery<Trainer> criteriaQuery = criteriaBuilder.createQuery(Trainer.class);
-
-        Root<Training> root = criteriaQuery.from(Training.class);
-        Join<Training, Trainee> traineeJoin = root.join("trainee", JoinType.INNER);
-        Join<Join<Training, Trainee>, User> userJoinTrainee =  traineeJoin.join("user", JoinType.INNER);
-
-        Predicate exceptTraineeWithUsername = criteriaBuilder.notEqual(userJoinTrainee.get("username"), traineeUsername);
-
-        criteriaQuery.where(exceptTraineeWithUsername);
-
-        TypedQuery<Trainer> query = em.createQuery(criteriaQuery);
         return query.getResultList();
     }
 }

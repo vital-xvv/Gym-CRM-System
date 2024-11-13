@@ -1,11 +1,12 @@
 package com.epam.vital.gym_crm.dto.training;
 
 import com.epam.vital.gym_crm.dict.TrainingType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.epam.vital.gym_crm.service;
 
+import com.epam.vital.gym_crm.dto.user.UpdateUserIsActiveDto;
 import com.epam.vital.gym_crm.model.User;
 import com.epam.vital.gym_crm.repository.UserRepository;
 import com.epam.vital.gym_crm.util.UserUtils;
@@ -24,21 +25,21 @@ public class UserService {
         return user.map(value -> value.getPassword().equals(password)).orElse(false);
     }
 
-    public boolean changeUserProfilePassword(String username, String oldPassword, String newPassword) {
+    public void changeUserProfilePassword(String username, String oldPassword, String newPassword) {
         Optional<User> user = repository.findByUsername(username);
         if (user.isPresent() && authenticateUser(user.get().getUsername(), oldPassword)) {
             user.get().setPassword(newPassword);
             repository.save(user.get());
-            return true;
         }
-        return false;
     }
 
-    public void changeUserProfileActivation(String username, boolean isActive) {
-        Optional<User> user = repository.findByUsername(username);
-        user.ifPresent(value -> {
-            value.setIsActive(isActive);
-            repository.save(user.get());
+    public void changeUserProfileActivation(UpdateUserIsActiveDto dto) {
+        Optional<User> user = repository.findByUsername(dto.getUsername());
+        user.ifPresent(u -> {
+            if (u.getIsActive() != dto.getIsActive()) {
+                u.setIsActive(dto.getIsActive());
+                repository.save(user.get());
+            }
         });
     }
 
@@ -46,13 +47,14 @@ public class UserService {
         repository.deleteByUsername(username);
     }
 
-    public void setUserUsername(User user) {
-        user.setUsername(UserUtils.generateUsername(user, !repository.existsByUsername(UserUtils.generateUsername(user, true))));
-        repository.save(user);
-    }
-
     public Optional<User> findUserByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+    public void initializeUserWithDefaultValues(User user) {
+        user.setUsername(UserUtils.generateUsername(user, !repository.existsByUsername(UserUtils.generateUsername(user, true))));
+        user.setPassword(UserUtils.generateRandomPassword());
+        user.setIsActive(false);
     }
 
 }

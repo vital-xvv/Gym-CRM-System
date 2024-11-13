@@ -1,5 +1,6 @@
 package com.epam.vital.gym_crm;
 
+import com.epam.vital.gym_crm.config.WebConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,5 +10,5 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class GymCrmApplicationTests {
     protected static final ApplicationContext applicationContext =
-            new AnnotationConfigApplicationContext(GymCrmApplication.class);
+            new AnnotationConfigApplicationContext(WebConfig.class);
 }

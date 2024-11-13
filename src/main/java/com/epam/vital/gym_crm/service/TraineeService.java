@@ -1,21 +1,22 @@
 package com.epam.vital.gym_crm.service;
 
 import com.epam.vital.gym_crm.criteria.TraineeCriteriaBuilder;
-import com.epam.vital.gym_crm.dict.TrainingType;
 import com.epam.vital.gym_crm.dto.trainee.CreateTraineeDto;
+import com.epam.vital.gym_crm.dto.trainee.TraineeProfile;
 import com.epam.vital.gym_crm.dto.trainee.UpdateTraineeDto;
+import com.epam.vital.gym_crm.dto.trainer.TrainerProfile;
+import com.epam.vital.gym_crm.dto.trainee.TraineeTrainingsDto;
 import com.epam.vital.gym_crm.model.Trainee;
 import com.epam.vital.gym_crm.model.Trainer;
 import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.repository.TraineeRepository;
 import com.epam.vital.gym_crm.repository.TrainerRepository;
 import com.epam.vital.gym_crm.repository.TrainingRepository;
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -58,40 +59,28 @@ public class TraineeService {
         return repository.findById(id).isEmpty();
     }
 
-    public void createTraineeProfile(CreateTraineeDto traineeDto) {
+    public Trainee createTraineeProfile(CreateTraineeDto traineeDto) {
         Trainee trainee = traineeDto.toTrainee();
-        userService.setUserUsername(trainee.getUser());
-        repository.save(trainee);
+        userService.initializeUserWithDefaultValues(trainee.getUser());
+        return repository.save(trainee);
     }
 
-    public void updateTraineeProfile(UpdateTraineeDto traineeDto) {
-        repository.save(convertUpdateTraineeToTrainee(traineeDto));
+    public TraineeProfile updateTraineeProfile(UpdateTraineeDto traineeDto) {
+        Trainee trainee = convertUpdateTraineeToTrainee(traineeDto);
+        return TraineeProfile.of(trainee);
     }
 
-    public Optional<Trainee> findTraineeProfileByUsername(String username) {
-        return repository.findByUser_Username(username);
-    }
-
-    public boolean changeTraineeProfilePassword(String username, String oldPassword, String newPassword) {
-        return userService.changeUserProfilePassword(username, oldPassword, newPassword);
-    }
-
-    public void toggleTraineeProfileActivation(String username, boolean isActive) {
-        userService.changeUserProfileActivation(username, isActive);
+    public Optional<TraineeProfile> findTraineeProfileByUsername(String username) {
+        Optional<Trainee> trainee = repository.findByUser_Username(username);
+        return trainee.map(TraineeProfile::of);
     }
 
     public void deleteTraineeProfileByUsername(String username) {
-        userService.deleteUserProfileByUsername(username);
+        repository.deleteTraineeByUser_Username(username);
     }
 
-    public List<Training> findTraineeTrainingsByCriteria(
-            String traineeUsername,
-            LocalDateTime from,
-            LocalDateTime to,
-            String trainerName,
-            TrainingType trainingType
-    ) {
-        return criteriaBuilder.findAllTraineeTrainingsByCriteria(traineeUsername, from, to, trainerName, trainingType);
+    public List<Training> findTraineeTrainingsByCriteria(TraineeTrainingsDto dto) {
+        return criteriaBuilder.findAllTraineeTrainingsByCriteria(dto.getTraineeUsername(), dto.getFrom(), dto.getTo(), dto.getTrainerName(), dto.getTrainingType());
     }
 
     public void assignTrainerProfileToTraineeProfileByUsernames(String traineeUsername, String trainerUsername) {
@@ -99,15 +88,25 @@ public class TraineeService {
         Optional<Trainer> trainer = trainerRepository.findByUser_Username(trainerUsername);
 
         trainee.ifPresent(tee -> trainer.ifPresent(tr -> tee.getTrainers().add(tr)));
+        trainee.ifPresent(repository::save);
     }
 
     private Trainee convertUpdateTraineeToTrainee(UpdateTraineeDto traineeDto) {
         return Trainee.builder()
-                .user(userService.findUserByUsername(traineeDto.getUsername()).orElse(null))
+                .user(userService.findUserByUsername(traineeDto.getUser().getUsername()).orElse(null))
                 .birthDate(traineeDto.getBirthDate())
                 .trainers(traineeDto.getTrainerUsernames().stream().map(trainerRepository::findByUser_Username).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList()))
                 .trainings(traineeDto.getTrainingIds().stream().map(trainingRepository::findById).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList()))
-                .id(repository.findByUser_Username(traineeDto.getUsername()).map(Trainee::getId).orElse(null))
+                .id(repository.findByUser_Username(traineeDto.getUser().getUsername()).map(Trainee::getId).orElse(null))
                 .build();
+    }
+
+    public List<TrainerProfile> assignTrainerProfilesToTraineeProfileByUsernames(String traineeUsername, List<String> trainerUsernames) {
+        Optional<Trainee> trainee = repository.findByUser_Username(traineeUsername);
+        if (trainee.isPresent()) {
+            trainerUsernames.forEach(u -> assignTrainerProfileToTraineeProfileByUsernames(traineeUsername, u));
+            return repository.findByUser_Username(traineeUsername).get().getTrainers().stream().map(TrainerProfile::of).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
     }
 }

@@ -1,6 +1,8 @@
 package com.epam.vital.gym_crm.service;
 
 import com.epam.vital.gym_crm.dto.training.CreateTrainingDto;
+import com.epam.vital.gym_crm.model.Trainee;
+import com.epam.vital.gym_crm.model.Trainer;
 import com.epam.vital.gym_crm.model.Training;
 import com.epam.vital.gym_crm.repository.TraineeRepository;
 import com.epam.vital.gym_crm.repository.TrainerRepository;
@@ -31,7 +33,22 @@ public class TrainingService {
 
     public void createTraining(CreateTrainingDto trainingDto) {
         log.info("Creating a training...");
-        repository.save(convertCreateTrainingDtoToTraining(trainingDto));
+
+        Optional<Trainer> trainer = trainerRepository.findByUser_Username(trainingDto.getTrainerUsername());
+        List<Trainee> trainees = trainingDto.getTraineeUsernames().stream().map(traineeRepository::findByUser_Username).filter(Optional::isPresent).map(Optional::get).toList();
+
+        if (trainer.isPresent() && !trainees.isEmpty()) {
+            Training training = new Training();
+            training.setTrainer(trainer.get());
+            training.setTrainees(trainees);
+            training.setTrainingName(trainingDto.getTrainingName());
+            training.setTrainingTypes(trainingDto.getTrainingTypes());
+            training.setDuration(trainingDto.getDuration());
+            training.setDateTime(trainingDto.getDateTime());
+            repository.save(training);
+        } else {
+            log.error("Data provided to create a Training is incorrect!");
+        }
     }
 
     public Training getTrainingById(Long id) {
@@ -47,16 +64,5 @@ public class TrainingService {
     public List<Training> getListOfTrainings() {
         log.info("Retrieving all trainings from DB...");
         return repository.findAll();
-    }
-
-    private Training convertCreateTrainingDtoToTraining(CreateTrainingDto trainingDto) {
-        return Training.builder()
-                .trainer(trainerRepository.findByUser_Username(trainingDto.getTrainerUsername()).orElse(null))
-                .trainingName(trainingDto.getTrainingName())
-                .trainingTypes(trainingDto.getTrainingTypes())
-                .duration(trainingDto.getDuration())
-                .dateTime(trainingDto.getDateTime())
-                .trainees(trainingDto.getTraineeUsernames().stream().map(traineeRepository::findByUser_Username).filter(Optional::isPresent).map(Optional::get).collect(Collectors.toList()))
-                .build();
     }
 }

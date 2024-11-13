@@ -1,5 +1,6 @@
 package com.epam.vital.gym_crm.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,11 +20,12 @@ public class Trainee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private User user;
-    @ManyToMany(mappedBy = "trainees")
+    @ManyToMany(mappedBy = "trainees", fetch = FetchType.LAZY)
     private List<Trainer> trainers;
-    @ManyToMany(mappedBy = "trainees")
+    @JsonManagedReference
+    @ManyToMany(mappedBy = "trainees", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Training> trainings;
     private LocalDate birthDate;
 }

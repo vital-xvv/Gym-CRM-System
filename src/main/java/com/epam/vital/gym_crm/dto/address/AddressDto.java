@@ -1,9 +1,8 @@
 package com.epam.vital.gym_crm.dto.address;
 
 import com.epam.vital.gym_crm.model.Address;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 public class AddressDto {

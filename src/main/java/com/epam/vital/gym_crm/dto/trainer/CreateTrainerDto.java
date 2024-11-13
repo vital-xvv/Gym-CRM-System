@@ -3,11 +3,13 @@ package com.epam.vital.gym_crm.dto.trainer;
 import com.epam.vital.gym_crm.dict.Specialization;
 import com.epam.vital.gym_crm.dto.user.CreateUserDto;
 import com.epam.vital.gym_crm.model.Trainer;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
+@Data
 public class CreateTrainerDto {
     @NotNull
     private CreateUserDto user;
