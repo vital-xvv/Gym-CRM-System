@@ -13,18 +13,18 @@ import java.util.List;
 
 @Data
 public class CreateTrainingDto {
-    @NotBlank
+    @NotBlank(message = "A training name can not be null or empty.")
     private String trainingName;
-    @NotNull
-    @Size(min = 1)
+    @NotNull(message = "Trainee usernames list can not be null.")
+    @Size(min = 1, message = "Trainee usernames list can not be empty.")
     private List<String> traineeUsernames;
-    @NotBlank
+    @NotBlank(message = "Trainer username can not be empty.")
     private String trainerUsername;
-    @NotNull
-    @Size(min = 1)
+    @NotNull(message = "Training types list can not be null.")
+    @Size(min = 1, message = "Training types list can not be empty.")
     private List<TrainingType> trainingTypes;
-    @NotNull
+    @NotNull(message = "Training date can not be null.")
     private LocalDateTime dateTime;
-    @NotNull
+    @NotNull(message = "Training duration can not be null.")
     private Duration duration;
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class TrainerTrainingsDto {
-    @NotBlank
+    @NotBlank(message = "Trainer's username can not be null or empty.")
     private String trainerUsername;
     private LocalDateTime from;
     private LocalDateTime to;

@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 public class AddressDto {
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Street can not be null or empty.")
     private String street;
-    @NotBlank
+    @NotBlank(message = "City can not be null or empty.")
     private String city;
-    @NotBlank
+    @NotBlank(message = "County code can not be null or empty.")
     private String countryCode;
     private String postalCode;
 

@@ -10,6 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -20,6 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Change user isActive value", description = "Provide a valid UpdateUserIsActiveDto json object to change isActive.")
     @PatchMapping("/manage/active")
     public ResponseEntity<?> manageUserIsActive(@Valid @RequestBody UpdateUserIsActiveDto dto) {
         userService.changeUserProfileActivation(dto);

@@ -5,6 +5,7 @@ import com.epam.vital.gym_crm.dto.user.UpdateUserDto;
 import com.epam.vital.gym_crm.model.Trainer;
 import com.epam.vital.gym_crm.model.Trainee;
 import com.epam.vital.gym_crm.model.Training;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -14,11 +15,13 @@ import java.util.stream.Collectors;
 
 @Data
 public class UpdateTrainerDto {
-    @NotNull
+    @NotNull(message = "User can not be null.")
+    @Valid
     private UpdateUserDto user;
     private List<Long> traineeIds;
     private List<Long> trainingIds;
-    @Size(min = 1)
+    @NotNull(message = "Trainer specializations list can not be null.")
+    @Size(min = 1, message = "Trainer specializations list can not be empty.")
     private List<Specialization> trainerSpecializations;
 
     public Trainer toTrainer() {
