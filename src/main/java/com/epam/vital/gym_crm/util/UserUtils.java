@@ -1,6 +1,6 @@
 package com.epam.vital.gym_crm.util;
 
-import com.epam.vital.gym_crm.model.User;
+import com.epam.vital.gym_crm.domain.model.User;
 import org.springframework.util.StringUtils;
 
 import java.util.UUID;

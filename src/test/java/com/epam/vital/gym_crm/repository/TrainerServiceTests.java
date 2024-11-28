@@ -1,10 +1,10 @@
 package com.epam.vital.gym_crm.repository;
 
 import com.epam.vital.gym_crm.GymCrmApplicationTests;
-import com.epam.vital.gym_crm.model.Trainer;
-import com.epam.vital.gym_crm.model.User;
+import com.epam.vital.gym_crm.domain.model.Trainer;
+import com.epam.vital.gym_crm.domain.model.User;
 
-import com.epam.vital.gym_crm.service.TrainerService;
+import com.epam.vital.gym_crm.domain.service.TrainerService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -27,14 +27,4 @@ public class ValidationExceptionHandler {
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(Exception ex) {
-        Map<String, String> errors = new HashMap<>();
-        String className = ex.getClass().getName();
-        String errorMessage = ex.getMessage();
-        errors.put("class", className);
-        errors.put("message", errorMessage);
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
 }

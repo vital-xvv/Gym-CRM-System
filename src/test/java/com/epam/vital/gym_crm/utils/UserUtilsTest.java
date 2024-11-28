@@ -1,6 +1,6 @@
 package com.epam.vital.gym_crm.utils;
 
-import com.epam.vital.gym_crm.model.User;
+import com.epam.vital.gym_crm.domain.model.User;
 import com.epam.vital.gym_crm.util.UserUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
