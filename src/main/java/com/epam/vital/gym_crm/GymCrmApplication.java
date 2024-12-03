@@ -1,17 +1,12 @@
 package com.epam.vital.gym_crm;
 
-import org.apache.catalina.LifecycleException;
-import org.apache.catalina.startup.Tomcat;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.io.File;
 
+@SpringBootApplication
 public class GymCrmApplication {
-    public static void main(String[] args) throws LifecycleException {
-        Tomcat tomcat = new Tomcat();
-        tomcat.setPort(8080);
-        tomcat.addWebapp("", new File("src/main/").getAbsolutePath());
-        tomcat.getConnector();
-        tomcat.start();
-        tomcat.getServer().await();
+    public static void main(String[] args) {
+        SpringApplication.run(GymCrmApplication.class, args);
     }
 }

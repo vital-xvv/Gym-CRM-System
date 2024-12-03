@@ -30,7 +30,7 @@ public class TrainingService {
     }
 
     @Transactional
-    public void createTraining(CreateTrainingDto trainingDto) {
+    public Training createTraining(CreateTrainingDto trainingDto) {
         log.info("Creating a training...");
 
         Optional<Trainer> trainer = trainerRepository.findByUser_Username(trainingDto.trainerUsername());
@@ -44,18 +44,9 @@ public class TrainingService {
             training.setTrainingTypes(trainingDto.trainingTypes());
             training.setDuration(trainingDto.duration());
             training.setDateTime(trainingDto.dateTime());
-            repository.save(training);
+            return repository.save(training);
         } else {
             log.error("Data provided to create a Training is incorrect!");
-        }
-    }
-
-    public Training getTrainingById(Long id) {
-        log.info("Finding a training with id {}...", id);
-        Optional<Training> training = repository.findById(id);
-        if (training.isPresent()) return training.get();
-        else {
-            log.error("Training with a specified id {} was not found.", id);
             return null;
         }
     }

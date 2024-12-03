@@ -40,12 +40,6 @@ public class TraineeService {
         this.trainerRepository = trainerRepository;
     }
 
-    public Optional<Trainee> getTraineeById(Long id) {
-        Optional<Trainee> trainee = repository.findById(id);
-        if (trainee.isEmpty()) log.error("Trainee with id {} does not exist.", id);
-        return trainee;
-    }
-
     public List<Trainee> getTraineeProfiles() {
         return repository.findAll();
     }

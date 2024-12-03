@@ -5,29 +5,32 @@ import com.epam.vital.gym_crm.domain.model.User;
 import com.epam.vital.gym_crm.domain.repository.UserRepository;
 import com.epam.vital.gym_crm.util.UserUtils;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private UserRepository repository;
+    private final UserRepository repository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    @Autowired
-    public void setRepository(UserRepository repository) {
-        this.repository = repository;
-    }
-
-    public boolean authenticateUser(String username, String password) {
-        Optional<User> user = repository.findByUsername(username);
-        return user.map(value -> value.getPassword().equals(password)).orElse(false);
+    public Optional<String> verify(String username, String password) {
+        Authentication authentication =  authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        return authentication.isAuthenticated() ? Optional.of(jwtService.generateToken(username)) : Optional.empty();
     }
 
     @Transactional
     public void changeUserProfilePassword(String username, String oldPassword, String newPassword) {
         Optional<User> user = repository.findByUsername(username);
-        if (user.isPresent() && authenticateUser(user.get().getUsername(), oldPassword)) {
+        if (user.isPresent()) {
             user.get().setPassword(newPassword);
             repository.save(user.get());
         }
@@ -55,7 +58,7 @@ public class UserService {
 
     public void initializeUserWithDefaultValues(User user) {
         user.setUsername(UserUtils.generateUsername(user, !repository.existsByUsername(UserUtils.generateUsername(user, true))));
-        user.setPassword(UserUtils.generateRandomPassword());
+        user.setPassword(passwordEncoder.encode(UserUtils.generateRandomPassword()));
         user.setIsActive(false);
     }
 

@@ -9,7 +9,11 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.Optional;
 
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -33,7 +37,16 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody AuthenticationDto dto) {
-        return ResponseEntity.ok(userService.authenticateUser(dto.username(), dto.password()));
+        Optional<String> token = userService.verify(dto.username(), dto.password());
+        if (token.isEmpty())
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.ok(Map.of("accessToken", token.get()));
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout() {
+        SecurityContextHolder.clearContext();
+        return ResponseEntity.ok(Map.of("message", "You have been logged out successfully!"));
     }
 
     @PutMapping("/change/password")

@@ -1,24 +1,27 @@
 package com.epam.vital.gym_crm.service;
 
-import com.epam.vital.gym_crm.GymCrmApplicationTests;
-import com.epam.vital.gym_crm.domain.model.Address;
+import com.epam.vital.gym_crm.domain.dto.user.UpdateUserIsActiveDto;
 import com.epam.vital.gym_crm.domain.model.User;
 import com.epam.vital.gym_crm.domain.service.UserService;
 import com.epam.vital.gym_crm.domain.repository.AddressRepository;
 import com.epam.vital.gym_crm.domain.repository.UserRepository;
 import com.epam.vital.gym_crm.util.UserUtils;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,41 +30,28 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
+@SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserServiceTests extends GymCrmApplicationTests {
-    private static final UserService service = applicationContext.getBean(UserService.class);
-    private static final UserRepository repository = applicationContext.getBean(UserRepository.class);
-    private static final AddressRepository addressRepository = applicationContext.getBean(AddressRepository.class);
-    private static final ObjectMapper mapper = applicationContext.getBean(ObjectMapper.class);
+public class UserServiceTests {
 
-    @BeforeAll
-    public static void prepareData() {
-        try {
-            List<Address> addresses = mapper.readValue(new File("src/test/resources/db_init/address.json"), new TypeReference<>() {});
-            List<User> users = mapper.readValue(new File("src/test/resources/db_init/users.json"), new TypeReference<>() {});
-            addressRepository.saveAll(addresses);
-            repository.saveAll(users);
-        } catch (Exception e) {
-            log.warn("Error occurred while initializing DB data, " +
-                    "try to recreate your DB or check if your data files are valid.");
-            log.error(e.getMessage());
-        }
+    @Autowired
+    private UserService service;
+    @Autowired
+    private UserRepository repository;
 
+    @Order(1)
+    @ParameterizedTest
+    @MethodSource("provideUsernameMap")
+    public void testSetUserUsername(List<User> users) {
+        //before
+        repository.findAll().forEach(u -> assertNull(u.getUsername()));
+
+        //when
+        users.forEach(service::initializeUserWithDefaultValues);
+
+        //then
+        repository.findAll().forEach(u -> assertFalse(u.getUsername().isEmpty()));
     }
-
-//    @Order(1)
-//    @ParameterizedTest
-//    @MethodSource("provideUsernameMap")
-//    public void testSetUserUsername(List<User> users) {
-//        //before
-//        repository.findAll().forEach(u -> assertNull(u.getUsername()));
-//
-//        //when
-//        users.forEach(service::setUserUsername);
-//
-//        //then
-//        repository.findAll().forEach(u -> assertFalse(u.getUsername().isEmpty()));
-//    }
 
     @Order(2)
     @ParameterizedTest
@@ -96,7 +86,7 @@ public class UserServiceTests extends GymCrmApplicationTests {
     @MethodSource("provideCorrectAuthCredentials")
     public void testIfAuthenticateUserCorrect(Map<String, String> creds) {
         //then
-        creds.forEach((k, v) -> assertTrue(service.authenticateUser(k, v)));
+        creds.forEach((k, v) -> assertFalse(service.verify(k, v).isEmpty()));
     }
 
     @Order(5)
@@ -104,7 +94,7 @@ public class UserServiceTests extends GymCrmApplicationTests {
     @MethodSource("provideIncorrectAuthCredentials")
     public void testIfAuthenticateUserIncorrect(Map<String, String> creds) {
         //then
-        creds.forEach((k, v) -> assertFalse(service.authenticateUser(k, v)));
+        creds.forEach((k, v) -> assertTrue(service.verify(k, v).isEmpty()));
     }
 
     @Order(6)
@@ -122,21 +112,23 @@ public class UserServiceTests extends GymCrmApplicationTests {
         assertEquals(user.get().getPassword(), creds.get(2));
     }
 
-//    @Order(7)
-//    @ParameterizedTest
-//    @MethodSource("provideUsernames")
-//    public void testChangeUserProfileActivation(String username) {
-//        //before
-//        Optional<User> user = service.findUserByUsername(username);
-//        assertTrue(user.isPresent());
-//        boolean isActive = user.get().getIsActive();
-//
-//        //when
-//        service.changeUserProfileActivation(username, !isActive);
-//
-//        //then
-//        assertNotEquals(repository.findByUsername(username).get().getIsActive(), isActive);
-//    }
+    @Order(7)
+    @ParameterizedTest
+    @MethodSource("provideUsernames")
+    public void testChangeUserProfileActivation(String username) {
+        //before
+        Optional<User> user = service.findUserByUsername(username);
+        assertTrue(user.isPresent());
+        boolean isActive = user.get().getIsActive();
+
+        UpdateUserIsActiveDto dto = new UpdateUserIsActiveDto("Henry.Hernandez", true);
+
+        //when
+        service.changeUserProfileActivation(dto);
+
+        //then
+        assertNotEquals(repository.findByUsername(username).get().getIsActive(), isActive);
+    }
 
     @Order(8)
     @ParameterizedTest
@@ -150,10 +142,6 @@ public class UserServiceTests extends GymCrmApplicationTests {
 
         //then
         assertEquals(1, beforeCount - repository.count());
-    }
-
-    private static Stream<List<User>> provideUsernameMap() {
-        return Stream.of(repository.findAll());
     }
 
     private static Stream<Map<String, String>> provideUserNamesWhichDuplicate() {
